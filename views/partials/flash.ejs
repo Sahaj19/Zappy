@@ -1,0 +1,22 @@
+<!------------------------------ success message ----------------------------------------->
+<% if(success && success.length) { %>
+
+<div class="flash_message_div">
+  <p class="flash_message"><%= success %></p>
+  <button class="flash_message_cross_btn">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+</div>
+
+<% } %>
+<!------------------------------ failure message ----------------------------------------->
+<% if(failure && failure.length) { %>
+
+<div class="flash_message_div">
+  <p class="flash_message"><%= failure %></p>
+  <button class="flash_message_cross_btn">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+</div>
+
+<% } %>

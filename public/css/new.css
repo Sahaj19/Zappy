@@ -1,0 +1,39 @@
+.add_new_listing_form_div {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.add_new_listing_form {
+    width: 50%;
+}
+
+.new_listing_div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+}
+
+.new_listing_div label {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.new_listing_div input ,
+.new_listing_div textarea {
+    font-size: 1.5rem;
+    padding: 0.5rem;
+}
+
+.add_new_listing_form button {
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    font-size: 2rem;
+    padding: 1rem;
+    background-color: steelblue;
+    border-radius: 10px;
+    border: none;
+    color: #fff;
+}

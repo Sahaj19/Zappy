@@ -1,0 +1,83 @@
+<% layout("layouts/boilerplate.ejs") %>
+
+<div class="edit_listing_form_div">
+  <form
+    action="/listings/<%= listing._id %>?_method=PUT"
+    method="post"
+    class="edit_prev_listing_form needs-validation"
+    novalidate
+  >
+    <!--------------------------- toy name ------------------------------>
+    <div class="updated_listing_div">
+      <label for="toy_name" class="form-label">Enter your toy's name</label>
+      <input
+        type="text"
+        id="toy_name"
+        name="listing[name]"
+        value="<%= listing.name %>"
+        maxlength="25"
+        minlength="3"
+        class="form-control"
+        autocomplete="off"
+        required
+      />
+    </div>
+
+    <!--------------------------- toy desc ------------------------------>
+    <div class="new_listing_div">
+      <label for="toy_desc" class="form-label"
+        >Enter your toy's description</label
+      >
+      <textarea
+        id="toy_desc"
+        cols="20"
+        rows="6"
+        minlength="50"
+        name="listing[description]"
+        class="form-control"
+        autocomplete="off"
+        required
+      >
+<%= listing.description %></textarea
+      >
+    </div>
+
+    <!--------------------------- toy img ------------------------------>
+
+    <div class="new_listing_div">
+      <label for="toy_img" class="form-label">Drop your toy's picture</label>
+      <input
+        type="text"
+        id="toy_img"
+        name="listing[image]"
+        value="<%= listing.image %>"
+        class="form-control"
+        autocomplete="off"
+        required
+      />
+    </div>
+
+    <!--------------------------- toy quality ------------------------------>
+    <div class="new_listing_div">
+      <label for="toy_quality" class="form-label"
+        >What do you like most about this toy?</label
+      >
+      <textarea
+        type="text"
+        id="toy_quality"
+        name="listing[quality]"
+        cols="20"
+        rows="6"
+        class="form-control"
+        autocomplete="off"
+        minlength="50"
+        required
+      >
+<%= listing.quality %></textarea
+      >
+    </div>
+
+    <!--------------------------- toy name ------------------------------>
+    <button>Edit my toy's details!</button>
+  </form>
+</div>

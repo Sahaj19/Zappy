@@ -1,0 +1,27 @@
+.flash_message_div {
+    background-color: steelblue ;
+    color: #fff;
+    max-width: 800px;
+    margin: 1rem auto;
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flash_message {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.flash_message_cross_btn {
+    background-color: transparent;
+    border: none;
+    font-size: 1.25rem;
+    color: #fff;
+}
+
+.remove {
+    display: none;
+}

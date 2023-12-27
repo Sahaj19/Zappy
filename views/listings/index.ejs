@@ -1,0 +1,30 @@
+<% layout("layouts/boilerplate.ejs") %>
+
+<!------------------------ Rendering our index page ------------------------------>
+
+<div class="index_page_toys_listings">
+  <% for(let listing of allListings) { %>
+  <div
+    class="particular_toy_listing"
+    data-listing-id="<%= listing._id %>"
+    title="You've got a friend in me!"
+  >
+    <img src="<%= listing.image %>" alt="<%= listing.name %>" />
+    <h2><%= listing.name %></h2>
+  </div>
+  <% } %>
+</div>
+
+<!------------------------ Rendering our show page , when we click on a particular listing ------------------------------>
+<script>
+  let particularListings = document.querySelectorAll(".particular_toy_listing");
+
+  particularListings.forEach((listing) => {
+    listing.addEventListener("click", (event) => {
+      let listingID = event.currentTarget.getAttribute("data-listing-id");
+      window.location.href = "/listings/" + listingID;
+    });
+  });
+</script>
+
+<!-- data attribute is used to store extra information on HTML elements -->

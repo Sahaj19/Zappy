@@ -1,0 +1,84 @@
+<% layout("layouts/boilerplate.ejs") %>
+
+<!--------------------------------------- toy details ------------------------------------------->
+<div class="toy_details">
+  <!------------------- img div ----------------->
+  <div class="show_page_image">
+    <img src="<%= listing.image %>" alt="<%= listing.name %>'s image" />
+  </div>
+
+  <!------------------- info div ----------------->
+  <div class="show_page_details">
+    <div class="show_page_details_name_div">
+      <h1><%= listing.name %></h1>
+    </div>
+
+    <div class="show_page_details_desc_quality_div">
+      <div class="show_page_details_desc_div">
+        <span><b>Description</b></span
+        ><br />
+        <p><%= listing.description %></p>
+      </div>
+
+      <div class="show_page_details_quality_div">
+        <span><b>Quality</b></span
+        ><br />
+        <p><%= listing.quality %></p>
+      </div>
+    </div>
+  </div>
+
+  <!------------------- buttons div ----------------->
+  <div class="show_page_edit_delete_review_buttons_div">
+    <form action="/listings/<%= listing._id %>/edit" method="get">
+      <button>Edit listing</button>
+    </form>
+
+    <form action="/listings/<%= listing._id %>?_method=DELETE" method="post">
+      <button>Delete listing</button>
+    </form>
+  </div>
+
+  <!-------------------- reviews section form -------------------->
+  <div class="review_form_heading">
+    <h2 class="review_form_heading_text">Wanna share something?</h2>
+  </div>
+
+  <div class="review_form">
+    <form
+      action="/listings/<%= listing._id %>/reviews"
+      method="post"
+      novalidate
+      class="needs-validation"
+    >
+      <textarea
+        name="review[comment]"
+        id="review"
+        rows="7"
+        minlength="50"
+        class="form-control"
+        autocomplete="off"
+        required
+      ></textarea>
+      <button>Share my moment</button>
+    </form>
+  </div>
+
+  <!-------------------- actual reviews section-------------------->
+
+  <div class="actual_review_heading">
+    <h2 class="actual_review_heading_text">People's Moments!</h2>
+  </div>
+
+  <% for(let review of listing.reviews) { %>
+  <div class="actual_review">
+    <p class="actual_review_content"><%= review.comment %></p>
+    <form
+      action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+      method="post"
+    >
+      <button>Delete my moment!</button>
+    </form>
+  </div>
+  <% } %>
+</div>
