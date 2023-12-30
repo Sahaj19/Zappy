@@ -1,0 +1,48 @@
+<% layout("layouts/boilerplate.ejs") %>
+
+<!-------------------------- sign up form ---------------------------------->
+<div class="signup_form_div">
+  <form action="/signup" method="post" novalidate class="needs-validation">
+    <!-------------------------- username --------------------------------->
+    <div class="signup_field_div">
+      <label for="username" class="form-label">Username</label><br />
+      <input
+        type="text"
+        id="username"
+        name="username"
+        autocomplete="off"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <!-------------------------- email --------------------------------->
+    <div class="signup_field_div">
+      <label for="email" class="form-label">Email</label><br />
+      <input
+        type="email"
+        id="email"
+        name="email"
+        autocomplete="off"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <!-------------------------- password --------------------------------->
+    <div class="signup_field_div">
+      <label for="password" class="form-label">Password</label><br />
+      <input
+        type="password"
+        id="password"
+        name="password"
+        autocomplete="off"
+        class="form-control"
+        required
+      />
+    </div>
+    <div class="signup_field_div">
+      <button>Sign Up</button>
+    </div>
+  </form>
+</div>

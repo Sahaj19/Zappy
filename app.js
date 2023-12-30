@@ -8,11 +8,15 @@ const methodOverride = require("method-override");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
 const flash = require("connect-flash");
+const User = require("./models/user.js");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //routers
 const listingRouter = require("./routes/listings.js");
 const reviewRouter = require("./routes/reviews.js");
+const userRouter = require("./routes/users.js");
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //(let's connect our mongodb server)
@@ -52,8 +56,17 @@ const sessionOptions = {
   },
 };
 
+//using connect-flash to display our messages
 app.use(session(sessionOptions));
 app.use(flash());
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//passport configurations
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //res.local variables
@@ -73,6 +86,7 @@ app.get("/", (req, res) => {
 //(routers)
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
+app.use("/", userRouter);
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //(wildcard route error handling middleware)
