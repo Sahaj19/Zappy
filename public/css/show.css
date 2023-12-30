@@ -7,6 +7,7 @@
   max-width: 900px;
   margin: 1rem auto;
   padding: 1rem;
+  min-height: 100vh;
 }
 
 /************ img div ***********/
@@ -144,4 +145,23 @@
     color: #fff;
     padding: 0.5rem;
     border-radius: 10px;
+}
+
+
+/****************** footer ****************/
+.footer {
+  background-color: steelblue;
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.footer .footer_text {
+  margin: 0;
+  font-weight: bold;
 }

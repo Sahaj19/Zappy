@@ -67,7 +67,7 @@
   <!-------------------- actual reviews section-------------------->
 
   <div class="actual_review_heading">
-    <h2 class="actual_review_heading_text">People's Moments!</h2>
+    <h2 class="actual_review_heading_text">Zappy User's Moments!</h2>
   </div>
 
   <% for(let review of listing.reviews) { %>
@@ -81,4 +81,11 @@
     </form>
   </div>
   <% } %>
+
+  <!------------------------------------ footer ------------------------------->
+  <div class="footer">
+    <p class="footer_text">
+      *Only <%= listing.owner.username %> can edit/delete this toy's info!
+    </p>
+  </div>
 </div>

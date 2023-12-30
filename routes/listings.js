@@ -1,21 +1,9 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const Listing = require("../models/listing.js");
-const { listingSchema } = require("../utils/joiSchema.js");
 const ExpressError = require("../utils/ExpressError.js");
 const WrapAsync = require("../utils/WrapAsync.js");
-
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//(Listing validation function)
-const validateListing = (req, res, next) => {
-  let { error } = listingSchema.validate(req.body);
-  if (error) {
-    let errMsg = error.details[0].message;
-    return next(new ExpressError(400, errMsg));
-  } else {
-    next();
-  }
-};
+const { validateListing, isLoggedIn } = require("../utils/middlewares.js");
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //(index page)
@@ -29,7 +17,7 @@ router.get(
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //(new page)
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
   res.render("listings/new.ejs");
 });
 
@@ -37,9 +25,12 @@ router.get("/new", (req, res) => {
 //(post route page)
 router.post(
   "/",
+  isLoggedIn,
   validateListing,
   WrapAsync(async (req, res) => {
     let newListing = new Listing(req.body.listing);
+    console.log(req.user);
+    newListing.owner = req.user._id;
     await newListing.save();
 
     req.flash("success", "New Toy Added Successfully!");
@@ -53,7 +44,9 @@ router.get(
   "/:id",
   WrapAsync(async (req, res, next) => {
     let { id } = req.params;
-    let listing = await Listing.findById(id).populate("reviews");
+    let listing = await Listing.findById(id)
+      .populate("reviews")
+      .populate("owner");
 
     if (!listing) {
       return next(new ExpressError(400, "Listing does not exist!"));
@@ -67,6 +60,7 @@ router.get(
 //(edit page)
 router.get(
   "/:id/edit",
+  isLoggedIn,
   WrapAsync(async (req, res, next) => {
     let { id } = req.params;
     let listing = await Listing.findById(id);
@@ -83,6 +77,7 @@ router.get(
 //(update route)
 router.put(
   "/:id",
+  isLoggedIn,
   validateListing,
   WrapAsync(async (req, res) => {
     let { id } = req.params;
@@ -97,6 +92,7 @@ router.put(
 //(delete route)
 router.delete(
   "/:id",
+  isLoggedIn,
   WrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndDelete(id);

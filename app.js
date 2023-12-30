@@ -71,10 +71,14 @@ passport.deserializeUser(User.deserializeUser());
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //res.local variables
 app.use((req, res, next) => {
-  res.locals.success = req.flash("success");
-  res.locals.failure = req.flash("failure");
+  res.locals.successMsg = req.flash("success");
+  res.locals.failureMsg = req.flash("error");
+  res.locals.currentUser = req.user;
   next();
 });
+
+/* when the login operation completes
+req.user will be assigned to currentUser */
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //(home page)

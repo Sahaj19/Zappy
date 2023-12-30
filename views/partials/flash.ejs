@@ -1,8 +1,8 @@
 <!------------------------------ success message ----------------------------------------->
-<% if(success && success.length) { %>
+<% if(successMsg && successMsg.length) { %>
 
 <div class="flash_message_div">
-  <p class="flash_message"><%= success %></p>
+  <p class="flash_message"><%= successMsg %></p>
   <button class="flash_message_cross_btn">
     <i class="fa-solid fa-xmark"></i>
   </button>
@@ -10,10 +10,11 @@
 
 <% } %>
 <!------------------------------ failure message ----------------------------------------->
-<% if(failure && failure.length) { %>
+
+<% if(failureMsg && failureMsg.length) { %>
 
 <div class="flash_message_div">
-  <p class="flash_message"><%= failure %></p>
+  <p class="flash_message"><%= failureMsg %></p>
   <button class="flash_message_cross_btn">
     <i class="fa-solid fa-xmark"></i>
   </button>
