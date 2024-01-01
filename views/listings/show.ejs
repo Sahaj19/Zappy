@@ -29,6 +29,8 @@
   </div>
 
   <!------------------- buttons div ----------------->
+  <% if(currentUser && currentUser._id.equals(listing.owner._id)) { %>
+
   <div class="show_page_edit_delete_review_buttons_div">
     <form action="/listings/<%= listing._id %>/edit" method="get">
       <button>Edit listing</button>
@@ -39,7 +41,11 @@
     </form>
   </div>
 
+  <% } %>
+
   <!-------------------- reviews section form -------------------->
+  <% if(currentUser) { %>
+
   <div class="review_form_heading">
     <h2 class="review_form_heading_text">Wanna share something?</h2>
   </div>
@@ -64,15 +70,24 @@
     </form>
   </div>
 
-  <!-------------------- actual reviews section-------------------->
+  <% } %>
+
+  <!-------------------- actual reviews section heading-------------------->
+
+  <% if(listing.reviews.length) { %>
 
   <div class="actual_review_heading">
     <h2 class="actual_review_heading_text">Zappy User's Moments!</h2>
   </div>
 
+  <% } %>
+
+  <!-------------------- actual reviews section content-------------------->
   <% for(let review of listing.reviews) { %>
   <div class="actual_review">
-    <p class="actual_review_content"><%= review.comment %></p>
+    <p class="actual_review_content">
+      <%= review.comment %> , <%= review.author.username %>
+    </p>
     <form
       action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
       method="post"

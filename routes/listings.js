@@ -3,7 +3,11 @@ const router = express.Router({ mergeParams: true });
 const Listing = require("../models/listing.js");
 const ExpressError = require("../utils/ExpressError.js");
 const WrapAsync = require("../utils/WrapAsync.js");
-const { validateListing, isLoggedIn } = require("../utils/middlewares.js");
+const {
+  validateListing,
+  isLoggedIn,
+  isOwner,
+} = require("../utils/middlewares.js");
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //(index page)
@@ -29,7 +33,6 @@ router.post(
   validateListing,
   WrapAsync(async (req, res) => {
     let newListing = new Listing(req.body.listing);
-    console.log(req.user);
     newListing.owner = req.user._id;
     await newListing.save();
 
@@ -45,7 +48,7 @@ router.get(
   WrapAsync(async (req, res, next) => {
     let { id } = req.params;
     let listing = await Listing.findById(id)
-      .populate("reviews")
+      .populate({ path: "reviews", populate: { path: "author" } })
       .populate("owner");
 
     if (!listing) {
@@ -61,6 +64,7 @@ router.get(
 router.get(
   "/:id/edit",
   isLoggedIn,
+  isOwner,
   WrapAsync(async (req, res, next) => {
     let { id } = req.params;
     let listing = await Listing.findById(id);
@@ -78,12 +82,12 @@ router.get(
 router.put(
   "/:id",
   isLoggedIn,
+  isOwner,
   validateListing,
-  WrapAsync(async (req, res) => {
+  WrapAsync(async (req, res, next) => {
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-
-    req.flash("success", "Toy's info updated successfully!");
+    req.flash("success", "Toy's info updated succcessfully!");
     res.redirect(`/listings/${id}`);
   })
 );
@@ -93,6 +97,7 @@ router.put(
 router.delete(
   "/:id",
   isLoggedIn,
+  isOwner,
   WrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndDelete(id);

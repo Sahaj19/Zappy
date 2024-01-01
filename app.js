@@ -35,11 +35,9 @@ main()
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //(Prerequisites)
 app.use(express.static(path.join(__dirname, "public")));
-
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.engine("ejs", ejsMate);
-
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
@@ -87,7 +85,7 @@ app.get("/", (req, res) => {
 });
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//(routers)
+//(routers configuration)
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
