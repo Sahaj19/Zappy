@@ -1,47 +1,23 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
-const User = require("../models/user.js");
 const WrapAsync = require("../utils/WrapAsync.js");
 const passport = require("passport");
-const ExpressError = require("../utils/ExpressError.js");
 const { saveRedirectUrl } = require("../utils/middlewares.js");
+
+//usercontroller
+const userController = require("../controllers/users.js");
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //signup get route
-router.get("/signup", (req, res) => {
-  res.render("users/signup.ejs");
-});
+router.get("/signup", userController.signUpForm);
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //signup post route
-router.post(
-  "/signup",
-  WrapAsync(async (req, res) => {
-    try {
-      let { username, email, password } = req.body;
-      let newUser = new User({ username, email });
-      let registeredUser = await User.register(newUser, password);
-
-      //user will be logged in , after signing up
-      req.login(registeredUser, (error) => {
-        if (error) {
-          return next(new ExpressError(400, error.message));
-        }
-        req.flash("success", `Welcome to Zappy ${username}`);
-        res.redirect("/listings");
-      });
-    } catch (error) {
-      req.flash("failure", error.message);
-      res.redirect("/signup");
-    }
-  })
-);
+router.post("/signup", WrapAsync(userController.createUser));
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //login get route
-router.get("/login", (req, res) => {
-  res.render("users/login.ejs");
-});
+router.get("/login", userController.loginForm);
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //login post route
@@ -52,26 +28,12 @@ router.post(
     failureRedirect: "/login",
     failureFlash: true,
   }),
-  WrapAsync(async (req, res) => {
-    let { username } = req.body;
-    req.flash("success", `Welcome back to Zappy ${username}`);
-    let redirectUrl = res.locals.redirectUrl || "/listings";
-    res.redirect(redirectUrl);
-  })
+  WrapAsync(userController.verifyUser)
 );
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //log out route
-router.get("/logout", (req, res, next) => {
-  req.logout((error) => {
-    if (error) {
-      return next(new ExpressError(500, error.message));
-    } else {
-      req.flash("success", "Logged you out successfully!");
-      res.redirect("/listings");
-    }
-  });
-});
+router.get("/logout", userController.logOut);
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 module.exports = router;
