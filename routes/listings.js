@@ -3,6 +3,11 @@ const router = express.Router({ mergeParams: true });
 const WrapAsync = require("../utils/WrapAsync.js");
 const listingController = require("../controllers/listings.js");
 
+//handling multipart-form data
+const multer = require("multer");
+const { storage } = require("../utils/cloudConfig.js");
+const upload = multer({ storage });
+
 //middlewares
 const {
   validateListing,
@@ -23,6 +28,7 @@ router.get("/new", isLoggedIn, listingController.newToyForm);
 router.post(
   "/",
   isLoggedIn,
+  upload.single("listing[image]"),
   validateListing,
   WrapAsync(listingController.addingNewToy)
 );
@@ -46,6 +52,7 @@ router.put(
   "/:id",
   isLoggedIn,
   isOwner,
+  upload.single("listing[image]"),
   validateListing,
   WrapAsync(listingController.updateToy)
 );

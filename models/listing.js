@@ -2,9 +2,6 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const Review = require("./review.js");
 
-let defaultLink =
-  "https://images.unsplash.com/photo-1616098063625-65f32186e609?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
-
 //++++++++++++++(let's create our toys schema)++++++++++++++++++++
 const listingSchema = new Schema({
   name: {
@@ -16,9 +13,8 @@ const listingSchema = new Schema({
     required: true,
   },
   image: {
-    type: String,
-    default: defaultLink,
-    set: (v) => (v == "" ? defaultLink : v),
+    url: String,
+    filename: String,
   },
   quality: {
     type: String,

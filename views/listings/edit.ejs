@@ -6,6 +6,7 @@
     method="post"
     class="edit_prev_listing_form needs-validation"
     novalidate
+    enctype="multipart/form-data"
   >
     <!--------------------------- toy name ------------------------------>
     <div class="updated_listing_div">
@@ -47,13 +48,11 @@
     <div class="new_listing_div">
       <label for="toy_img" class="form-label">Drop your toy's picture</label>
       <input
-        type="text"
+        type="file"
         id="toy_img"
         name="listing[image]"
-        value="<%= listing.image %>"
         class="form-control"
         autocomplete="off"
-        required
       />
     </div>
 
