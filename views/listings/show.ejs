@@ -85,9 +85,8 @@
   <!-------------------- actual reviews section content-------------------->
   <% for(let review of listing.reviews) { %>
   <div class="actual_review">
-    <p class="actual_review_content">
-      <%= review.comment %> , <%= review.author.username %>
-    </p>
+    <p class="actual_review_content">@<%= review.author.username %></p>
+    <p class="actual_review_content"><%= review.comment %></p>
     <form
       action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
       method="post"

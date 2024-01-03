@@ -36,3 +36,11 @@
 }
 
 
+
+/************************ responsiveness ******************************/
+@media(max-width:500px) {
+    .particular_toy_listing img {
+        height: 350px;
+    }
+}
+

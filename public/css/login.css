@@ -34,3 +34,30 @@
     border-radius: 10px;
     margin-top: 1rem;
 }
+
+
+/************************ responsiveness ******************************/
+@media(max-width:650px) {
+    .login_form_div form {
+        max-width: 400px;
+    }
+}
+
+@media(max-width:550px) {
+    .login_form_div form {
+        max-width: 300px;
+    }
+
+    .login_field_div label {
+        font-size: 1.5rem;
+    }
+    
+    .login_field_div input {
+        font-size: 1.5rem;
+    }
+
+    .login_field_div button {
+        font-size: 1.5rem;
+        padding: 0.5rem;
+    }
+}

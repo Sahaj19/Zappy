@@ -9,7 +9,7 @@
     enctype="multipart/form-data"
   >
     <!--------------------------- toy name ------------------------------>
-    <div class="updated_listing_div">
+    <div class="new_listing_div">
       <label for="toy_name" class="form-label">Enter your toy's name</label>
       <input
         type="text"
@@ -41,6 +41,13 @@
       >
 <%= listing.description %></textarea
       >
+    </div>
+
+    <!--------------------------- toy img ------------------------------>
+
+    <div class="new_listing_div" id="preview_img">
+      <label for="preview_img" class="form-label">your current toy image</label>
+      <img src="<%= listing.image.url %>" alt="Preview_image" />
     </div>
 
     <!--------------------------- toy img ------------------------------>
