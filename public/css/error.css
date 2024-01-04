@@ -1,5 +1,5 @@
 .error {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -19,5 +19,17 @@
 .error_message {
     color: #fff;
     text-align: center;
+}
+
+
+/*************************** responsiveness *******************************/
+@media(max-width : 800px) {
+    .error {
+        padding: 2rem;
+    }
+
+    .error_message_div {
+        padding: 2rem;
+    }
 }
 

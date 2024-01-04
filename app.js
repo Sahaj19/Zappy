@@ -11,6 +11,7 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const User = require("./models/user.js");
 const passport = require("passport");
@@ -24,17 +25,19 @@ const userRouter = require("./routes/users.js");
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //(let's connect our mongodb server)
+let DBUrl = process.env.MONGODB_URL;
+
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/Zappy");
+  try {
+    await mongoose.connect(DBUrl);
+    console.log("Zappy connected successfully!");
+  } catch (error) {
+    console.log("Something went wrong!");
+    throw new ExpressError(500, "Zappy failed to connect!");
+  }
 }
 
-main()
-  .then(() => {
-    console.log("Zappy connected successfully");
-  })
-  .catch((error) => {
-    console.log("Zappy failed to connect", error.message);
-  });
+main();
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //(Prerequisites)
@@ -46,9 +49,24 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//mongostore configurations
+const store = MongoStore.create({
+  mongoUrl: DBUrl,
+  crypto: {
+    secret: process.env.SESSION_SECRET,
+  },
+  touchAfter: 24 * 3600,
+});
+
+store.on("error", () => {
+  console.log("Error in mongo session store", err);
+});
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //session management
 const sessionOptions = {
-  secret: "DEVELOPMENT",
+  store,
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
