@@ -22,6 +22,25 @@ router.post(
 );
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(review edit get route)
+router.get(
+  "/:reviewId/edit",
+  isLoggedIn,
+  isReviewAuthor,
+  reviewController.editReview
+);
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(review update put route)
+router.put(
+  "/:reviewId",
+  isLoggedIn,
+  isReviewAuthor,
+  validateReview,
+  WrapAsync(reviewController.updateReview)
+);
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //(review delete route)
 router.delete(
   "/:reviewId",

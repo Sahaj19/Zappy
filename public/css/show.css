@@ -50,7 +50,7 @@
 }
 
 /************ buttons div ***********/
-.show_page_edit_delete_review_buttons_div {
+.show_page_edit_delete_listing_buttons_div {
   width: 100%;
   margin-bottom: 1rem;
   display: flex;
@@ -58,11 +58,11 @@
   padding: 1rem 0;
 }
 
-.show_page_edit_delete_review_buttons_div form {
+.show_page_edit_delete_listing_buttons_div form {
   flex-basis: 48%;
 }
 
-.show_page_edit_delete_review_buttons_div form button {
+.show_page_edit_delete_listing_buttons_div form button {
   width: 100%;
   color: #fff;
   background-color: steelblue;
@@ -148,13 +148,24 @@
   margin-bottom: 0;
 }
 
-.actual_review button {
+.show_page_edit_delete_review_buttons_div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.show_page_edit_delete_review_buttons_div form {
+  flex-basis: 45%;
+}
+
+.show_page_edit_delete_review_buttons_div form button {
   margin-top: 1rem;
   border: none;
   background-color: steelblue;
   color: #fff;
   padding: 0.5rem;
   border-radius: 10px;
+  width: 100%;
 }
 
 /****************** footer ****************/
@@ -182,11 +193,11 @@
     height: 450px;
   }
 
-  .show_page_edit_delete_review_buttons_div {
+  .show_page_edit_delete_listing_buttons_div {
     flex-direction: column;
   }
 
-  .show_page_edit_delete_review_buttons_div form button {
+  .show_page_edit_delete_listing_buttons_div form button {
     margin-bottom: 0.5rem;
     font-size: 1.25rem;
   }

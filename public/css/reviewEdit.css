@@ -1,0 +1,63 @@
+.review_edit_div {
+  min-height: 100vh;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.review_edit_div form {
+  width: 100%;
+}
+
+.review_edit_div form label,
+.review_edit_div form textarea {
+  width: 100%;
+  font-size: 1.75rem;
+}
+
+.review_edit_div form textarea {
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+}
+
+.review_edit_div form button {
+  width: 100%;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 1rem;
+  background-color: steelblue;
+  color: #fff;
+  border-radius: 10px;
+  border: none;
+}
+
+/**************************** responsiveness ********************************/
+@media (max-width: 700px) {
+  .review_edit_div {
+    max-width: 400px;
+  }
+
+  .review_edit_div form label,
+  .review_edit_div form textarea {
+    font-size: 1rem;
+  }
+
+  .review_edit_div form textarea {
+    margin-top: 0.1rem;
+  }
+
+  .review_edit_div form button {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .review_edit_div {
+    max-width: 300px;
+  }
+
+  .review_edit_div form button {
+    font-size: 1.25rem;
+    padding: 1rem;
+  }
+}

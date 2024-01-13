@@ -1,5 +1,6 @@
 const Review = require("../models/review.js");
 const Listing = require("../models/listing.js");
+const ExpressError = require("../utils/ExpressError.js");
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //(review post route)
@@ -19,6 +20,39 @@ const createReview = async (req, res) => {
 };
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(review edit route)
+const editReview = async (req, res, next) => {
+  try {
+    let { id, reviewId } = req.params;
+    let listing = await Listing.findById(id);
+    let review = await Review.findById(reviewId).populate("author");
+
+    if (!listing || !review) {
+      req.flash("error", "Listing/review does not exist!");
+      return res.redirect(`listings/${id}`);
+    }
+
+    res.render("reviews/edit.ejs", { listing, review });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(review update route)
+const updateReview = async (req, res, next) => {
+  try {
+    let { id, reviewId } = req.params;
+    await Review.findByIdAndUpdate(reviewId, { ...req.body.review });
+    req.flash("success", "Your moment updated successfully!");
+    res.redirect(`/listings/${id}`);
+  } catch (error) {
+    next(error);
+  }
+};
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //(review delete route)
 const deleteReview = async (req, res) => {
   let { id, reviewId } = req.params;
@@ -31,4 +65,4 @@ const deleteReview = async (req, res) => {
 };
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-module.exports = { createReview, deleteReview };
+module.exports = { createReview, deleteReview, editReview, updateReview };

@@ -75,7 +75,7 @@ raha hai */
 
 const isReviewAuthor = async (req, res, next) => {
   let { reviewId } = req.params;
-  let review = await Review.findById(reviewId);
+  let review = await Review.findById(reviewId).populate("author");
   if (!res.locals.currentUser._id.equals(review.author._id)) {
     return next(
       new ExpressError(400, "You cannot delete someone else's special moment!")

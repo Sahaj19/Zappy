@@ -1,0 +1,28 @@
+<% layout("layouts/boilerplate.ejs") %>
+
+<div class="review_edit_div">
+  <form
+    action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=PUT"
+    method="post"
+    novalidate
+    class="needs-validation"
+  >
+    <label for="comment" class="form-label"
+      >Your Current Moment , <b>@<%= review.author.username %></b></label
+    >
+    <textarea
+      type="text"
+      id="comment"
+      class="form-control"
+      name="review[comment]"
+      cols="30"
+      rows="10"
+      minlength="50"
+      autocomplete="off"
+      required
+    >
+<%= review.comment %></textarea
+    >
+    <button>Update my moment!</button>
+  </form>
+</div>

@@ -31,7 +31,7 @@
   <!------------------- buttons div ----------------->
   <% if(currentUser && currentUser._id.equals(listing.owner._id)) { %>
 
-  <div class="show_page_edit_delete_review_buttons_div">
+  <div class="show_page_edit_delete_listing_buttons_div">
     <form action="/listings/<%= listing._id %>/edit" method="get">
       <button>Edit listing</button>
     </form>
@@ -90,12 +90,21 @@
 
     <% if(currentUser && currentUser._id.equals(review.author._id)) { %>
 
-    <form
-      action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
-      method="post"
-    >
-      <button class="deleteReviewButton">Delete my moment!</button>
-    </form>
+    <div class="show_page_edit_delete_review_buttons_div">
+      <form
+        action="/listings/<%= listing._id %>/reviews/<%= review._id %>/edit"
+        method="get"
+      >
+        <button>Edit</button>
+      </form>
+
+      <form
+        action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+        method="post"
+      >
+        <button class="deleteReviewButton">Delete</button>
+      </form>
+    </div>
 
     <% } %>
   </div>
