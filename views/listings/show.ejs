@@ -37,7 +37,7 @@
     </form>
 
     <form action="/listings/<%= listing._id %>?_method=DELETE" method="post">
-      <button>Delete listing</button>
+      <button class="deleteListingButton">Delete listing</button>
     </form>
   </div>
 
@@ -87,12 +87,17 @@
   <div class="actual_review">
     <p class="actual_review_content">@<%= review.author.username %></p>
     <p class="actual_review_content"><%= review.comment %></p>
+
+    <% if(currentUser && currentUser._id.equals(review.author._id)) { %>
+
     <form
       action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
       method="post"
     >
-      <button>Delete my moment!</button>
+      <button class="deleteReviewButton">Delete my moment!</button>
     </form>
+
+    <% } %>
   </div>
   <% } %>
 
@@ -103,3 +108,6 @@
     </p>
   </div>
 </div>
+
+<!------------------------- listings & reviews deletion handler ------------------------->
+<script src="/js/deletionHandler.js"></script>
