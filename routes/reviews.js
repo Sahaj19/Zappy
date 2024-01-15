@@ -27,7 +27,7 @@ router.get(
   "/:reviewId/edit",
   isLoggedIn,
   isReviewAuthor,
-  reviewController.editReview
+  WrapAsync(reviewController.editReview)
 );
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

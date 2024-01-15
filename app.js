@@ -113,18 +113,21 @@ app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//(wildcard route error handling middleware)
-app.all("*", (req, res, next) => {
-  next(new ExpressError(404, "Page Not Found!"));
-});
-
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//(specially for id)
+// Error handling middleware for specific cases
 app.use((err, req, res, next) => {
   if (err.message.includes("Cast to ObjectId failed")) {
     return next(new ExpressError(400, "Invalid ID!"));
+  } else if (err.message.includes("Cannot read properties of null")) {
+    return next(new ExpressError(400, "Listing/Review does not exist!"));
+  } else {
+    next(err);
   }
-  next(err);
+});
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(wildcard route error handling middleware)
+app.all("*", (req, res, next) => {
+  next(new ExpressError(404, "Page Not Found!"));
 });
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

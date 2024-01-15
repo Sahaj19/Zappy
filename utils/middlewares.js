@@ -59,12 +59,25 @@ ko edit ya delete kar raha
 hai */
 
 const isOwner = async (req, res, next) => {
-  let { id } = req.params;
-  let listing = await Listing.findById(id);
-  if (!listing.owner._id.equals(res.locals.currentUser._id)) {
-    return next(new ExpressError(400, "you don't have the permission!"));
+  try {
+    let { id } = req.params;
+    let listing = await Listing.findById(id);
+
+    if (!listing) {
+      return next(new ExpressError(400, "Listing does not exist"));
+    }
+
+    if (!listing.owner) {
+      return next(new ExpressError(400, "Listing owner does not exist!"));
+    }
+
+    if (!listing.owner._id.equals(res.locals.currentUser._id)) {
+      return next(new ExpressError(400, "you don't have the permission!"));
+    }
+    next();
+  } catch (error) {
+    next(new ExpressError(500, error));
   }
-  next();
 };
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -74,14 +87,31 @@ jo bhi reviewko delete kar
 raha hai */
 
 const isReviewAuthor = async (req, res, next) => {
-  let { reviewId } = req.params;
-  let review = await Review.findById(reviewId).populate("author");
-  if (!res.locals.currentUser._id.equals(review.author._id)) {
-    return next(
-      new ExpressError(400, "You cannot delete someone else's special moment!")
-    );
+  try {
+    let { reviewId } = req.params;
+    let review = await Review.findById(reviewId).populate("author");
+
+    if (!review) {
+      return next(new ExpressError(400, "Review does not exist!"));
+    }
+
+    if (!review.author) {
+      return next(new ExpressError(400, "Review author not found!"));
+    }
+
+    if (!res.locals.currentUser._id.equals(review.author._id)) {
+      return next(
+        new ExpressError(
+          400,
+          "You cannot delete someone else's special moment!"
+        )
+      );
+    }
+
+    next();
+  } catch (error) {
+    next(new ExpressError(500, error));
   }
-  next();
 };
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

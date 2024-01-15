@@ -22,34 +22,29 @@ const createReview = async (req, res) => {
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //(review edit route)
 const editReview = async (req, res, next) => {
-  try {
-    let { id, reviewId } = req.params;
-    let listing = await Listing.findById(id);
-    let review = await Review.findById(reviewId).populate("author");
+  let { id, reviewId } = req.params;
+  let listing = await Listing.findById(id);
 
-    if (!listing || !review) {
-      req.flash("error", "Listing/review does not exist!");
-      return res.redirect(`listings/${id}`);
-    }
-
-    res.render("reviews/edit.ejs", { listing, review });
-  } catch (error) {
-    console.log(error);
-    next(error);
+  if (!listing) {
+    return next(new ExpressError(400, "Listing does not exist!"));
   }
+
+  let review = await Review.findById(reviewId).populate("author");
+
+  if (!review || !review.author) {
+    return next(new ExpressError(400, "Review does not exist!"));
+  }
+
+  res.render("reviews/edit.ejs", { listing, review });
 };
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //(review update route)
 const updateReview = async (req, res, next) => {
-  try {
-    let { id, reviewId } = req.params;
-    await Review.findByIdAndUpdate(reviewId, { ...req.body.review });
-    req.flash("success", "Your moment updated successfully!");
-    res.redirect(`/listings/${id}`);
-  } catch (error) {
-    next(error);
-  }
+  let { id, reviewId } = req.params;
+  await Review.findByIdAndUpdate(reviewId, { ...req.body.review });
+  req.flash("success", "Your moment updated successfully!");
+  res.redirect(`/listings/${id}`);
 };
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
