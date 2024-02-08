@@ -11,8 +11,15 @@ nav a {
   color: #fff;
 }
 
+.clock {
+  text-align: center;
+  color: #9ec5f5;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
 /********************** responsiveness *********************/
-@media (max-width: 800px) {
+@media (max-width: 1200px) {
   nav {
     flex-direction: column;
     padding: 0.5rem 0;
@@ -27,5 +34,9 @@ nav a {
   nav a {
     font-size: 1.5rem;
     color: #fff;
+  }
+
+  .clock {
+    font-size: 1.5rem;
   }
 }
