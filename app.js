@@ -32,7 +32,7 @@ async function main() {
     await mongoose.connect(DBUrl);
     console.log("Zappy connected successfully!");
   } catch (error) {
-    console.log("Something went wrong!");
+    console.error("MongoDB connection error:", error);
     throw new ExpressError(500, "Zappy failed to connect!");
   }
 }

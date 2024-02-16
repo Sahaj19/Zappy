@@ -44,7 +44,6 @@
   <% } %>
 
   <!-------------------- reviews section form -------------------->
-  <% if(currentUser) { %>
 
   <div class="review_form_heading">
     <h2 class="review_form_heading_text">Wanna share something?</h2>
@@ -66,11 +65,16 @@
         autocomplete="off"
         required
       ></textarea>
-      <button>Share my moment</button>
+
+      <!-------------------------------->
+      <% if(!currentUser) { %>
+      <button disabled style="cursor: not-allowed" title="Log in first!">
+        Share my moment
+      </button>
+      <% } else { %> <button>Share my moment</button> <% }%>
+      <!-------------------------------->
     </form>
   </div>
-
-  <% } %>
 
   <!-------------------- actual reviews section heading-------------------->
 
