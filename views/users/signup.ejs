@@ -10,10 +10,15 @@
         type="text"
         id="username"
         name="username"
+        minlength="3"
+        maxlength="30"
         autocomplete="off"
         class="form-control"
         required
       />
+      <div class="invalid-feedback">
+        Username must be between 3 and 30 characters
+      </div>
     </div>
 
     <!-------------------------- email --------------------------------->
@@ -23,10 +28,12 @@
         type="email"
         id="email"
         name="email"
+        maxlength="50"
         autocomplete="off"
         class="form-control"
         required
       />
+      <div class="invalid-feedback">Please enter a valid email address</div>
     </div>
 
     <!-------------------------- password --------------------------------->
@@ -36,10 +43,15 @@
         type="password"
         id="password"
         name="password"
+        minlength="4"
+        maxlength="20"
         autocomplete="off"
         class="form-control"
         required
       />
+      <div class="invalid-feedback">
+        Password must be between 4 and 20 characters
+      </div>
     </div>
 
     <!-------------------------- Signup Button --------------------------------->

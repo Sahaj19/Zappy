@@ -22,6 +22,9 @@
         autocomplete="off"
         required
       />
+      <div class="invalid-feedback">
+        Toy's name must be between 3 and 25 characters
+      </div>
     </div>
 
     <!--------------------------- toy desc ------------------------------>
@@ -41,6 +44,7 @@
       >
 <%= listing.description %></textarea
       >
+      <div class="invalid-feedback">Please enter at least 50 characters.</div>
     </div>
 
     <!--------------------------- toy img ------------------------------>
@@ -81,6 +85,7 @@
       >
 <%= listing.quality %></textarea
       >
+      <div class="invalid-feedback">Please enter at least 50 characters.</div>
     </div>
 
     <!--------------------------- toy name ------------------------------>
