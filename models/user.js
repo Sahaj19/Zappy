@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 const passportLocalMongoose = require("passport-local-mongoose");
 const { Schema } = mongoose;
 
-//+++++++++++++++++++++++++++ user schema +++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(user schema)
 const userSchema = new Schema({
   email: {
     type: String,
@@ -10,13 +11,16 @@ const userSchema = new Schema({
   },
 });
 
-//+++++++++++++++++++++++++++ passport plugin ++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(passport plugin)
 userSchema.plugin(passportLocalMongoose);
 
-//+++++++++++++++++++++++++++ user model +++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(user model)
 const User = mongoose.model("User", userSchema);
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(exporting our user model)
 module.exports = User;
 
 /* NOTE : passport local mongoose khud

@@ -1,46 +1,50 @@
 const Joi = require("joi");
 
-//+++++++++++++++++++(listing schema validation)++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(listing schema validation)
 
 const listingSchema = Joi.object({
   listing: Joi.object({
     name: Joi.string().max(25).required().trim().min(3).messages({
-      "string.base": "Name should be a string",
-      "string.empty": "Name is required",
-      "string.min": "Name should atleast have {#limit} characters",
-      "string.max": "Name should not exceed {#limit} characters",
-      "any.required": "Name is required",
+      "string.base": "Toy's name should be a string",
+      "string.empty": "Toy's name is required",
+      "string.min": "Toy's name should atleast have {#limit} characters",
+      "string.max": "Toy's name should not exceed {#limit} characters",
+      "any.required": "Toy's name is required",
     }),
 
     description: Joi.string().required().trim().min(50).messages({
-      "string.base": "Description should be a string",
-      "string.empty": "Description is required",
-      "string.min": "Description should atleast have {#limit} characters",
-      "any.required": "Description is required",
+      "string.base": "Toy's description should be a string",
+      "string.empty": "Toy's description is required",
+      "string.min": "Toy's description should atleast have {#limit} characters",
+      "any.required": "Toy's description is required",
     }),
 
     image: Joi.string().allow("", null),
 
     quality: Joi.string().required().trim().min(50).messages({
-      "string.base": "Quality should be a string",
-      "string.min": "Quality should atleast have {#limit} characters",
-      "string.empty": "Quality is required",
-      "any.required": "Quality is required",
+      "string.base": "Toy's quality should be a string",
+      "string.min": "Toy's quality should atleast have {#limit} characters",
+      "string.empty": "Toy's quality is required",
+      "any.required": "Toy's quality is required",
     }),
   }).required(),
 }).required();
 
-//+++++++++++++++++++(review schema validation)++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(review schema validation)
 const reviewSchema = Joi.object({
   review: Joi.object({
     comment: Joi.string().required().trim().min(50).messages({
-      "string.base": "comment should be a string",
-      "string.empty": "comment is required",
-      "string.min": "Your sharing should atleast have {#limit} characters",
-      "any.required": "comment is required",
+      "string.base": "Your special moment should be a string",
+      "string.empty": "Your special moment is required",
+      "string.min":
+        "Your special moment should atleast have {#limit} characters",
+      "any.required": "Your special moment is required",
     }),
   }).required(),
 }).required();
 
-//++++++++++++++++++++(let export our listing schema)+++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(let's export our schemas)
 module.exports = { listingSchema, reviewSchema };

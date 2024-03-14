@@ -1,11 +1,16 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-//++++++++++++++++++++++ review Schema +++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(special-moment schema)
 const reviewSchema = new Schema({
   comment: {
     type: String,
-    required: true,
+    minlength: [
+      50,
+      "Your special moment should have a minimum of 50 characters!",
+    ],
+    required: [true, "Your special moment is required!"],
   },
   author: {
     type: Schema.Types.ObjectId,
@@ -13,8 +18,10 @@ const reviewSchema = new Schema({
   },
 });
 
-//+++++++++++++++++++++++++ review model ++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(special-moment model)
 const Review = mongoose.model("Review", reviewSchema);
 
-//++++++++++++++++++++++ let's export our review model ++++++++++++++++++++\
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(exporting our special-moment model)
 module.exports = Review;
