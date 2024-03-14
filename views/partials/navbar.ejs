@@ -1,20 +1,22 @@
-<nav>
-  <a href="/listings">All Toys</a>
-  <a href="/listings/new">Add new toy</a>
+<div class="max_width_navbar">
+  <nav>
+    <a href="/listings">All Toys</a>
+    <a href="/listings/new">Add new toy</a>
 
-  <!------------- if user is not logged in -------------->
-  <% if(!currentUser) { %>
-  <a href="/signup">Sign Up</a>
-  <a href="/login">Login</a>
-  <% } %>
+    <!------------- if user is not logged in -------------->
+    <% if(!currentUser) { %>
+    <a href="/signup">Sign Up</a>
+    <a href="/login">Login</a>
+    <% } %>
 
-  <!------------- if user is logged in -------------->
-  <% if(currentUser) { %>
-  <a href="/logout">Log Out</a>
-  <% } %>
+    <!------------- if user is logged in -------------->
+    <% if(currentUser) { %>
+    <a href="/logout">Log Out</a>
+    <% } %>
 
-  <!------------------- clock -------------------------->
-  <span class="clock"></span>
-</nav>
+    <!------------------- clock -------------------------->
+    <span class="clock"></span>
+  </nav>
+</div>
 
 <script src="/js/clock.js"></script>

@@ -1,10 +1,12 @@
 .index_page_toys_listings {
+    max-width: 1600px;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1rem;
     padding: 1.5rem 0.5rem;
     flex-wrap: wrap;
+    margin: 0.5rem auto;
 }
 
 .particular_toy_listing {
